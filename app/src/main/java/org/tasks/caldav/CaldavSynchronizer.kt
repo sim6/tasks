@@ -112,6 +112,9 @@ class CaldavSynchronizer @Inject constructor(
         for (resource in resources) {
             val url = resource.href.toString()
             var calendar = caldavDao.getCalendarByUrl(account.uuid!!, url)
+	    if (resource[DisplayName::class.java] == null) {
+		print("ERROR: NULL DETECTED")
+	    }
             val remoteName = resource[DisplayName::class.java]!!.displayName
             val calendarColor = resource[CalendarColor::class.java]
             val color = calendarColor?.color ?: 0
